@@ -223,10 +223,10 @@ export default {
         this.updateDisplay();
       }
     },
-    handleTouchStart(event) {
+    handleTouchStart() {
       this.touchStartTime = new Date().getTime();
     },
-    handleTouchEnd(event) {
+    handleTouchEnd() {
       const touchEndTime = new Date().getTime();
       const touchDuration = touchEndTime - this.touchStartTime;
       if (touchDuration < 500) {
