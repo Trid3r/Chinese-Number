@@ -1,78 +1,79 @@
 <template>
-  <div class="container">
-    <h1>Número Aleatorio y Hanzi</h1>
-    <div class="difficulty-switch">
-      <label for="easy">Fácil</label>
-      <input
-        type="radio"
-        id="easy"
-        value="easy"
-        v-model="difficulty"
-        @change="updateDisplay"
-      />
-      <label for="medium">Intermedio</label>
-      <input
-        type="radio"
-        id="medium"
-        value="medium"
-        v-model="difficulty"
-        @change="updateDisplay"
-      />
-      <label for="hard">Difícil</label>
-      <input
-        type="radio"
-        id="hard"
-        value="hard"
-        v-model="difficulty"
-        @change="updateDisplay"
-      />
-    </div>
-    <div class="number-container">
-      <div class="topSection">
-        {{ top }}
-      </div>
-      <h2 class="downSection">{{ down }}</h2>
-    </div>
-  </div>
+  <v-app>
+    <v-main>
+      <v-container class="container">
+        <v-row align="center">
+          <v-col cols="12" md="12" lg="12">
+            <v-form class="form">
+              <v-select
+                v-model="difficulty"
+                :items="difficultyOptions"
+                label="Dificultad"
+                outlined
+                @change="updateDisplay"
+              ></v-select>
+            </v-form>
+          </v-col>
+        </v-row>
+        <div @touchstart="handleTouchStart" @touchend="handleTouchEnd">
+          <v-row align="center">
+            <v-col cols="12" md="12" lg="12" sm="12">
+              <div class="top-section">
+                <div class="top-section-content">
+                  {{ topSection }}
+                </div>
+              </div>
+            </v-col>
+          </v-row>
+          <v-row align="center">
+            <v-col cols="12" md="12" lg="12" sm="12">
+              <div class="down-section">
+                {{ downSection }}
+              </div>
+            </v-col>
+          </v-row>
+        </div>
+      </v-container>
+    </v-main>
+  </v-app>
 </template>
 
 <style>
 .container {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
   height: 100vh;
   background-color: #333;
   color: #fff;
   text-align: center;
 }
 
-.difficulty-switch {
+.form {
   margin-bottom: 2rem;
 }
 
-.difficulty-switch label {
-  margin-right: 1rem;
-}
-
-.number-container {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  width: 50%;
-  max-width: 600px;
-}
-
-.topSection {
-  font-size: 10vw;
+.top-section-content {
   font-weight: bold;
-  margin-bottom: 2rem;
+  text-align: center;
+  width: 100%;
 }
 
-.downSection {
-  font-size: 6vw;
+@media (max-width: 767px) {
+  /* Estilos para dispositivos móviles */
+  .top-section-content {
+    font-size: 50vw;
+  }
+}
+
+@media (min-width: 768px) {
+  /* Estilos para pantallas de escritorio */
+  .top-section-content {
+    font-size: 20vw;
+  }
+}
+
+.down-section {
+  font-size: 8vw;
+  text-align: center;
+  width: 100%;
 }
 </style>
 
@@ -81,9 +82,15 @@ export default {
   name: "App",
   data() {
     return {
-      top: "",
-      down: "",
+      topSection: "",
+      downSection: "",
       difficulty: "easy",
+      touchStartTime: 0,
+      difficultyOptions: [
+        { text: "Fácil", value: "easy" },
+        { text: "Intermedio", value: "medium" },
+        { text: "Difícil", value: "hard" },
+      ],
     };
   },
   methods: {
@@ -202,8 +209,8 @@ export default {
     updateDisplay() {
       const randomNumber = this.getRandomNumber(1, 99);
       const hanzi = this.getHanzi(randomNumber);
-      this.top = this.difficulty === "easy" ? randomNumber : hanzi;
-      this.down =
+      this.topSection = this.difficulty === "easy" ? randomNumber : hanzi;
+      this.downSection =
         this.difficulty === "easy"
           ? hanzi
           : this.difficulty === "medium"
@@ -216,6 +223,16 @@ export default {
         this.updateDisplay();
       }
     },
+    handleTouchStart(event) {
+      this.touchStartTime = new Date().getTime();
+    },
+    handleTouchEnd(event) {
+      const touchEndTime = new Date().getTime();
+      const touchDuration = touchEndTime - this.touchStartTime;
+      if (touchDuration < 500) {
+        this.updateDisplay();
+      }
+    },
   },
   mounted() {
     document.addEventListener("keydown", this.handleKeyPress);
@@ -225,4 +242,3 @@ export default {
   },
 };
 </script>
-
