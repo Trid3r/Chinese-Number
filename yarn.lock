@@ -2571,6 +2571,11 @@ check-types@^8.0.3:
   resolved "https://registry.yarnpkg.com/check-types/-/check-types-8.0.3.tgz#3356cca19c889544f2d7a95ed49ce508a0ecf552"
   integrity sha512-YpeKZngUmG65rLudJ4taU7VLkOCTMhNl/u4ctNC56LQS/zJTyNH0Lrtwm1tfTsbLlwvlfsA2d1c8vCf/Kh2KwQ==
 
+chinese-numbering@^1.0.0:
+  version "1.0.0"
+  resolved "https://registry.yarnpkg.com/chinese-numbering/-/chinese-numbering-1.0.0.tgz#f7d16dd4960d78319b6e3d1366739d28fdb010e1"
+  integrity sha512-CsGoI1oj4V9BaMsFzj4FRNP3Z2vlr5e/Pkdv6sXJcd5ce2Jtt6W/zMkvjP3TmxCsin+2nosuBYI7sx2uj9rxIg==
+
 "chokidar@>=3.0.0 <4.0.0", chokidar@^3.4.1:
   version "3.5.3"
   resolved "https://registry.yarnpkg.com/chokidar/-/chokidar-3.5.3.tgz#1cf37c8707b932bd1af1ae22c0432e2acd1903bd"
